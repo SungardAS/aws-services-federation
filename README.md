@@ -40,7 +40,7 @@ But, currently, some values need to be hardcoded in deployment files because the
 
   > **AWS Region** and **AWS Account Number** in Lambda Function Uri, `arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations`
 
-After setting up the pipeline, there are a few steps you need to add
+After setting up the pipeline, there is a step you need to do
 
 - In the newly created role for CodeBuild, add below policy statement to upload the lambda code zip file in S3 bucket during building
 
@@ -54,7 +54,9 @@ After setting up the pipeline, there are a few steps you need to add
   }
   ```
 
-- In API Gateway console, follow these steps to give a permission for the API Gateway to invoke Lambda Function
+After deployment, follow these steps to give a permission for the API Gateway to invoke Lambda Function
+
+- In API Gateway console,
 
   > Go to 'Integration Request' page of '/federation' GET method
 
