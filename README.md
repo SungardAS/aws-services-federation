@@ -41,13 +41,9 @@ Return Value
 
     > Under 'Advanced' setting, add an Environment variable , S3_BUCKET_NAME, with the S3 bucket name you created above.
 
-- Currently some values need to be hardcoded in swagger.yaml
+  - *Currently some values need to be hardcoded in swagger.yaml*
 
-  - **AWS Region** and **AWS Account Number** in Lambda Function Uri
-  
-    > 
-    
-        arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations
+    > **AWS Region** and **AWS Account Number** in Lambda Function Uri, *arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations*
 
 - After deployment, follow these steps to give a permission for the API Gateway to invoke Lambda Function
 
