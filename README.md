@@ -28,11 +28,11 @@ Return Value
 
   >
 
-      codepipeline-\<region\>-\<account_num\>-\<project_name\>
+      codepipeline-<region>-<account_num>-<project_name>
 
   like
 
-      codepipeline-us-east-1-9999999999-aws-services-encryption
+      codepipeline-us-east-1-9999999999-aws-services-federation
 
 
 - Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with additional steps below.
@@ -41,26 +41,27 @@ Return Value
 
     > Under 'Advanced' setting, add an Environment variable , S3_BUCKET_NAME, with the S3 bucket name you created above.
 
+- Currently some values need to be hardcoded in swagger.yaml
 
+  - **AWS Region** and **AWS Account Number** in Lambda Function Uri
+  
+    > 
+    
+        arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations
 
+- After deployment, follow these steps to give a permission for the API Gateway to invoke Lambda Function
 
-And currently some values need to be hardcoded in swagger.yaml and these are
+  - In API Gateway console,
 
-- **AWS Region** and **AWS Account Number** in Lambda Function Uri, `arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations`
+    - Go to 'Integration Request' page of '/federation' GET method
 
-After deployment, follow these steps to give a permission for the API Gateway to invoke Lambda Function
+    - Click the edit icon for 'Lambda Function'
 
-- In API Gateway console,
+    - Save without any change, then a popup window will be displayed
 
-  > Go to 'Integration Request' page of '/federation' GET method
+    - Run the command in the popup window
 
-  > Click the edit icon for 'Lambda Function'
-
-  > Save without any change, then a popup window will be displayed
-
-  > Run the command in the popup window
-
-  > Deploy API again
+    - Deploy API again
 
 
 ## How To Test Lambda Function
