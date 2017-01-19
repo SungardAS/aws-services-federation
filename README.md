@@ -35,7 +35,7 @@ Return Value
       codepipeline-us-east-1-9999999999-aws-services-federation
 
 
-- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with additional steps below.
+- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with an additional step below.
 
   - When creating a new project in CodeBuild,
 
@@ -43,21 +43,7 @@ Return Value
 
   - *Currently some values need to be hardcoded in swagger.yaml*
 
-    > **AWS Region** and **AWS Account Number** in Lambda Function Uri, *arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations*
-
-- After deployment, follow these steps to give a permission for the API Gateway to invoke Lambda Function
-
-  - In API Gateway console,
-
-    - Go to 'Integration Request' page of '/federation' GET method
-
-    - Click the edit icon for 'Lambda Function'
-
-    - Save without any change, then a popup window will be displayed
-
-    - Run the command in the popup window
-
-    - Deploy API again
+    > **AWS Region** and **AWS Account Number** in Lambda Function Uri, *arn:aws:apigateway:\<\<region\>\>:lambda:path/2015-03-31/functions/arn:aws:lambda:\<\<region\>\>:\<\<account\>\>:function:${stageVariables.LambdaFunctionName}/invocations*
 
 
 ## How To Test Lambda Function
