@@ -5,7 +5,7 @@ phases:
       - npm install time
       - aws cloudformation package
          --template-file template.yaml
-         --s3-bucket $S3_BUCKET_NAME
+         --s3-bucket $S3_BUCKET_NAME/aws-services-federation
          --output-template-file samTemplate.yaml
 artifacts:
   type: zip
