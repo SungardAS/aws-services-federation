@@ -3,6 +3,9 @@ phases:
   install:
     commands:
       - npm install time
+      - npm install
+      - ./node_modules/.bin/replace '__aws_region' $AWS_DEFAULT_REGION ./swagger.yaml
+      - ./node_modules/.bin/replace '__aws_account' $AWS_ACCOUNT_ID ./swagger.yaml
       - aws cloudformation package
          --template-file template.yaml
          --s3-bucket $S3_BUCKET_NAME

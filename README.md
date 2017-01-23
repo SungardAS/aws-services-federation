@@ -35,15 +35,13 @@ Return Value
       codepipeline-us-east-1-9999999999-aws-services-federation
 
 
-- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with an additional step below.
+- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with an additional step to set environment variables under 'Advanced' setting when creating a new project in CodeBuild
 
-  - When creating a new project in CodeBuild,
+  > S3_BUCKET_NAME : S3 bucket name you created above
 
-    > Under 'Advanced' setting, add an Environment variable , S3_BUCKET_NAME, with the S3 bucket name you created above.
+  > AWS_DEFAULT_REGION : AWS region where this project is deployed
 
-  - *Currently some values need to be hardcoded in swagger.yaml*
-
-    > **AWS Region** and **AWS Account Number** in Lambda Function Uri, *arn:aws:apigateway:\<\<region\>\>:lambda:path/2015-03-31/functions/arn:aws:lambda:\<\<region\>\>:\<\<account\>\>:function:${stageVariables.LambdaFunctionName}/invocations*
+  > AWS_ACCOUNT_ID : AWS Account Number where this project is deployed
 
 
 ## How To Test Lambda Function
@@ -64,5 +62,4 @@ Blog:
 
 [labs-github-url]: https://sungardas.github.io
 [labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
-[aws-services-image]: ./docs/images/logo.png?raw=true
 [aws-services-image]: ./docs/images/logo.png?raw=true

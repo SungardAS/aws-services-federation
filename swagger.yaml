@@ -86,7 +86,7 @@ paths:
             },\n    {\"roleArn\": \"arn:aws:iam::$input.params('account'):role/$input.params('roleName')\"\
             , \"externalId\": \"$input.params().header.get('roleExternalId')\"}\n\
             \  ],\n  \"sessionName\":\"session1\",\n  \"durationSeconds\":0\n}"
-        uri: "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:089476987273:function:${stageVariables.LambdaFunctionName}/invocations"
+        uri: "arn:aws:apigateway:__aws_region:lambda:path/2015-03-31/functions/arn:aws:lambda:__aws_region:__aws_account:function:${stageVariables.LambdaFunctionName}/invocations"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
         contentHandling: "CONVERT_TO_TEXT"
