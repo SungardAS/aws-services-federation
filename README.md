@@ -24,20 +24,7 @@ Return Value
 
 ## How To Setup a CodePipeline
 
-- First, create a S3 Bucket where the deployment files will be uploaded with below naming convention. *(You can use a different convention, but you need to add a permission for the CodeBuild to access this S3 bucket)*.
-
-  >
-
-      codepipeline-<region>-<account_num>-<project_name>
-
-  like
-
-      codepipeline-us-east-1-9999999999-aws-services-federation
-
-
-- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with an additional step to set environment variables under 'Advanced' setting when creating a new project in CodeBuild
-
-  > S3_BUCKET_NAME : S3 bucket name you created above
+- Please see here, https://github.com/SungardAS/aws-services-encryption#how-to-setup-a-codepipeline, and add below environment variables in CodeBuild
 
   > AWS_DEFAULT_REGION : AWS region where this project is deployed
 
