@@ -67,6 +67,8 @@ paths:
               type: "string"
             Access-Control-Allow-Headers:
               type: "string"
+      security:
+      - SSOAuthorizer: []
       x-amazon-apigateway-integration:
         responses:
           default:
@@ -86,7 +88,7 @@ paths:
             },\n    {\"roleArn\": \"arn:aws:iam::$input.params('account'):role/$input.params('roleName')\"\
             , \"externalId\": \"$input.params().header.get('roleExternalId')\"}\n\
             \  ],\n  \"sessionName\":\"session1\",\n  \"durationSeconds\":0\n}"
-        uri: "arn:aws:apigateway:__aws_region:lambda:path/2015-03-31/functions/arn:aws:lambda:__aws_region:__aws_account:function:${stageVariables.LambdaFunctionName}/invocations"
+        uri: "arn:aws:apigateway:AWS::REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:AWS::REGION:AWS::ACCOUNT_ID:function:${stageVariables.LambdaFunctionName}/invocations"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
         contentHandling: "CONVERT_TO_TEXT"
@@ -154,6 +156,17 @@ paths:
           application/json: "{\"statusCode\": 200}"
         passthroughBehavior: "when_no_match"
         type: "mock"
+securityDefinitions:
+  SSOAuthorizer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    x-amazon-apigateway-authtype: "custom"
+    x-amazon-apigateway-authorizer:
+      authorizerCredentials: "__aws_auth_role"
+      authorizerResultTtlInSeconds: 300
+      authorizerUri: "arn:aws:apigateway:AWS::REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:AWS::REGION:AWS::ACCOUNT_ID:function:AWS::CUSTOM_AUTHORIZER_LAMBDA_NAME/invocations"
+      type: "token"
 definitions:
   Empty:
     type: "object"
