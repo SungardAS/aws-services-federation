@@ -14,6 +14,7 @@ Path
 
 Headers
 ```
+Authorization:<refresh_token_to_validate_by_custom_authroizer>
 roleExternalId:<externl_id_of_target_account_to_federate>
 ```
 
