@@ -2,19 +2,31 @@
 
 const AWS = require('aws-sdk');
 
-const createResponse = (statusCode, body) => {
-  return {
-    statusCode: statusCode,
-    body: body
+function sendResponse(responseBody, statusCode, context) {
+  if (statusCode == 200) {
+    context.succeed(responseBody);
   }
-};
+  else {
+    context.fail(responseBody);
+  }
+}
 
-exports.handler = (event, context, callback) => {
+exports.handler = (event, context) => {
+
+  console.log(event);
+
+  var refresh_token = event.authorizer_refresh_token;
+  var error = event.authorizer_error;
+  if (error) {
+      sendResponse(error, 403, context);
+  }
+
   assumeRole(null, 0, event.roles, event.sessionName, event.durationSeconds, function(err, data) {
-    if (err)  callback(null, createResponse(500, err));
+    if (err)  sendResponse(err, 500, context);
     else {
       if (event.region) data['region'] = event.region;
-      callback(null, createResponse(200, data));
+      if (refresh_token) data['refresh_token'] = refresh_token;
+      sendResponse(data, 200, context);
     }
   });
 }
