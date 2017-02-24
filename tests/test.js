@@ -17,5 +17,5 @@ event = {
 }
 
 var i = require('../src/index.js');
-var context = {succeed: res => console.log(res.Credentials)};
+var context = {succeed: res => console.log(res.Credentials), fail: err => console.log(err)};
 i.handler(event, context);
