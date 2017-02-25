@@ -88,7 +88,7 @@ paths:
             },\n    {\"roleArn\": \"arn:aws:iam::$input.params('account'):role/$input.params('roleName')\"\
             , \"externalId\": \"$input.params().header.get('roleExternalId')\"}\n\
             \  ],\n  \"sessionName\":\"session1\",\n  \"durationSeconds\":0,\n  \"authorizer_refresh_token\": \"$context.authorizer.refresh_token\",\
-            \n  \"authorizer_error\": \"$context.authorizer.error\"}"
+            \n  \"authorizer_user_guid\": \"$context.authorizer.user_guid\",\n  \"authorizer_error\": \"$context.authorizer.error\"}"
         uri: "arn:aws:apigateway:AWS::REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:AWS::REGION:AWS::ACCOUNT_ID:function:${stageVariables.LambdaFunctionName}/invocations"
         passthroughBehavior: "when_no_match"
         httpMethod: "POST"
