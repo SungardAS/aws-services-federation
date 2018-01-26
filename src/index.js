@@ -17,6 +17,10 @@ exports.handler = (event, context) => {
 
   var refresh_token = event.authorizer_refresh_token;
   var user_guid = event.authorizer_user_guid;
+  if (!user_guid) {
+    // when the APIGateway was authenticated using AWS_IAM
+    user_guid = context.invokeid;
+  }
   console.log('user_guid = ' + user_guid);
   var error = event.authorizer_error;
   if (error) {

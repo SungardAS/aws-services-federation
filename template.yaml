@@ -54,11 +54,17 @@ Resources:
       Role: !GetAtt LambdaFunctionIAMRole.Arn
       Timeout: 60
       Events:
-        ProxyApiGreedy:
+        ProxyApiFederation:
           Type: Api
           Properties:
             RestApiId: !Ref ApiGatewayApi
             Path: /federation
+            Method: GET
+        ProxyApiFederationIAM:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /federation_iam
             Method: GET
 
 Outputs:
