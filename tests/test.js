@@ -16,9 +16,6 @@ event = {
   durationSeconds: 0
 }
 
-var i = require('./index.js');
-var context = null;
-i.handler(event, context, function(err, data) {
-  if (err)  console.log("failed : " + err);
-  else console.log("completed: " + JSON.stringify(data));
-});
+var i = require('../src/index.js');
+var context = {succeed: res => console.log(res.Credentials), fail: err => console.log(err)};
+i.handler(event, context);

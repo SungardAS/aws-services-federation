@@ -14,6 +14,7 @@ Path
 
 Headers
 ```
+Authorization:<refresh_token_to_validate_by_custom_authroizer>
 roleExternalId:<externl_id_of_target_account_to_federate>
 ```
 
@@ -24,26 +25,41 @@ Return Value
 
 ## How To Setup a CodePipeline
 
-- First, create a S3 Bucket where the deployment files will be uploaded with below naming convention. *(You can use a different convention, but you need to add a permission for the CodeBuild to access this S3 bucket)*.
+<a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=ServerlessCodePipeline&amp;templateURL=https://s3.amazonaws.com/cloudformation-serverless-codepipeline.us-east-1/codepipeline.yaml"><img src="https://camo.githubusercontent.com/210bb3bfeebe0dd2b4db57ef83837273e1a51891/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f636c6f7564666f726d6174696f6e2d6578616d706c65732f636c6f7564666f726d6174696f6e2d6c61756e63682d737461636b2e706e67" alt="Launch Stack" data-canonical-src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png" /></a>
 
-  >
+Input Parameter Values
 
-      codepipeline-<region>-<account_num>-<project_name>
+- CloudformationLambdaExecutionRoleArn:
 
-  like
+  Enter `ARN of IAM Role for Cloudformation to create changesets and target stack`. If you already created one or more CodePipeline that uses Cloudformation, this role should have been created already, so you can use the same role, 'cloudformation-lambda-execution-role'. If not, please create a role with the same name with Trust Relationships and Policy Document defined <a href="https://s3.amazonaws.com/cloudformation-serverless-codepipeline.us-east-1/roles/role_cloudformation-lambda-execution-role.json">here</a>.
 
-      codepipeline-us-east-1-9999999999-aws-services-federation
+- CodePipelineServiceRoleArn:
 
+  Enter `ARN of IAM Role for CodePipeline to be executed`. If you already created one or more CodePipeline, this role should have been created already, so you can use the same role, 'AWS-CodePipeline-Service'. If not, please create a role with the same name with Trust Relationships and Policy Document defined <a href="https://s3.amazonaws.com/cloudformation-serverless-codepipeline.us-east-1/roles/role_AWS-CodePipeline-Service.json">here</a>.
 
-- Follow the steps in http://docs.aws.amazon.com/lambda/latest/dg/automating-deployment.html along with an additional step below.
+- CustomAuthorizerIAMRoleName:
 
-  - When creating a new project in CodeBuild,
+  Enter the `NAME (not ARN) of IAM Role that has the permission for API Gateway to invoke custom authorizer Lambda Function`. (See <a href="https://s3.amazonaws.com/cloudformation-serverless-codepipeline.us-east-1/roles/role_apigateway-lambda-execution-role.json">here</a> for Trust Relationships and Policy Document).
 
-    > Under 'Advanced' setting, add an Environment variable , S3_BUCKET_NAME, with the S3 bucket name you created above.
+- CustomAuthorizerLambdaName:
 
-  - *Currently some values need to be hardcoded in swagger.yaml*
+  Enter the `NAME (not ARN) of custom authorizer Lambda Function`. (See <a href="https://github.com/SungardAS/aws-services-authorizer">here</a> for the Lambda Function Project for Custom Authorizer using SSO Server).
 
-    > **AWS Region** and **AWS Account Number** in Lambda Function Uri, *arn:aws:apigateway:\<\<region\>\>:lambda:path/2015-03-31/functions/arn:aws:lambda:\<\<region\>\>:\<\<account\>\>:function:${stageVariables.LambdaFunctionName}/invocations*
+- EncryptionLambdaName:
+
+- GitHubPersonalAccessToken:
+
+  `Access Token` for CodeBuild to access to the this Github repository. (See <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a> to find how to generate the access token).
+
+- GitHubSourceRepositoryBranch: `master`
+
+- GitHubSourceRepositoryName: `aws-services-federation`
+
+- GitHubSourceRepositoryOwner: `SungardAS`
+
+- ParameterOverrides:
+
+- ProjectImage: `aws/codebuild/nodejs:8.11.0`
 
 
 ## How To Test Lambda Function
@@ -64,5 +80,4 @@ Blog:
 
 [labs-github-url]: https://sungardas.github.io
 [labs-logo]: https://raw.githubusercontent.com/SungardAS/repo-assets/master/images/logos/sungardas-labs-logo-small.png
-[aws-services-image]: ./docs/images/logo.png?raw=true
 [aws-services-image]: ./docs/images/logo.png?raw=true
